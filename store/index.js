@@ -26,12 +26,12 @@ export const actions = {
   login ({commit, dispatch}, {email, password}) {
     return this.$axios.post('/auth/login', {email, password})
       .then(res => {
-        const {user, accessToken} = res.data
+        const {email, access_token} = res.data
 
-        Cookie.set('access-token', accessToken, {domain: process.env.host})
-        this.$axios.setToken(accessToken, 'Bearer')
+        Cookie.set('access-token', access_token, {domain: process.env.host})
+        this.$axios.setToken(access_token, 'Bearer')
 
-        return user
+        return email
       })
   },
 

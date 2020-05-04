@@ -4,7 +4,7 @@
       <h3 class="header_1 loginHeader">
         Sign In!
       </h3>
-      <form class="loginForm">
+      <form @submit.prevent class="loginForm">
         <div class="labelInputWrap">
           <h3 class="input_label inputLabel">
             Your email address
@@ -43,7 +43,7 @@ export default {
       this.$router.push('/register')
     },
     login() {
-      this.$store.dispatch('login', {email: this.email, password: this.password})
+      this.$store.dispatch('login', {email: this.data.email, password: this.data.password})
         .then(res => {
           console.log('user Logged In')
           // this.$router.push('/')
@@ -76,6 +76,7 @@ export default {
 .loginForm {
   max-width: 500px;
   width: 100%;
+  padding: 0 1rem;
 }
 .labelInputWrap {
   margin-bottom: 1rem;

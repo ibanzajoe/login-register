@@ -9,7 +9,10 @@
           <h3 class="input_label inputLabel">
             Your full name
           </h3>
-          <input class="nameInput" type="string" v-model="data.name" placeholder="Full Name" />
+          <div class="firstLastNameWrap">
+            <input class="nameInput" type="string" v-model="data.first_name" placeholder="First Name" />
+            <input class="nameInput" type="string" v-model="data.last_name" placeholder="Last Name" /> 
+          </div>
         </div>
         <div class="labelInputWrap">
           <h3 class="input_label inputLabel">
@@ -40,7 +43,8 @@ export default {
     return {
       loginScreen: true,
       data: {
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
       }
@@ -52,11 +56,12 @@ export default {
     },
     async register() {
       try {
-        await this.$axios.post('/auth/signup', {username: this.email, password: this.password})
+        await this.$axios.post('/auth/signup', {email: this.data.email, password: this.data.password, first_name: this.first_name, last_name: this.last_name})
           .then(res => {
+            this.$store.dispatch('login', {email: this.data.email, password: this.data.password})
             console.log('this is the return on /register: ', res)
-            this.$store.dispatch('store/setToken', res.data.token)
-            this.$store.dispatch('store/setUser', res.data.user)
+            /* this.$store.dispatch('store/setToken', res.data.token)
+            this.$store.dispatch('store/setUser', res.data.user) */
           })
       } catch (error) {
         this.error = error.response.data.error
@@ -86,6 +91,7 @@ export default {
 .loginForm {
   max-width: 500px;
   width: 100%;
+  padding: 0 1rem;
 }
 .labelInputWrap {
   margin-bottom: 1rem;
@@ -95,6 +101,14 @@ export default {
   align-items: center;
   justify-content: center;
   padding-top: 1rem;
+}
+.firstLastNameWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nameInput + .nameInput {
+  margin-left: 1rem;
 }
 
 
