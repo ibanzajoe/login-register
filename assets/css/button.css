@@ -1,0 +1,12 @@
+button {
+ padding: 0.4em 0.9em 0.45em 0.9em;
+ border-radius: 5px;
+ font-size: 22px; 
+ cursor: pointer;
+}
+
+.loginButton {
+  width: 100%;
+  background-color: #14CC80;
+  color: #fff;
+}
